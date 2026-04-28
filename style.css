@@ -513,6 +513,31 @@ ul {
     margin-bottom: 15px;
 }
 
+.project-title-link {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.project-title-link:hover {
+    color: var(--accent-primary);
+}
+
+.title-icon {
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateY(5px) translateX(-5px);
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .title-icon,
+.project-title-link:hover .title-icon {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+}
 .project-body p {
     font-size: 0.95rem;
     margin-bottom: 20px;
