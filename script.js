@@ -879,7 +879,7 @@ function toggleSidebar(forceCollapse) {
 }
 
 // Switch Sidebar panel view
-function switchSidebarView(view) {
+function switchSidebarView(view, forceOpen = true) {
   sidebarView = view;
   
   // Show right pane
@@ -898,7 +898,7 @@ function switchSidebarView(view) {
   // Mark activity item active
   activateActivityItem(view);
   
-  if (sidebarCollapsed) {
+  if (forceOpen && sidebarCollapsed) {
     toggleSidebar(false);
   }
 }
@@ -999,11 +999,16 @@ function openFile(fileId) {
   if (infoPanel) {
     if (fileId === "settings") {
       infoPanel.classList.add("collapsed");
-      switchSidebarView("settings");
+      switchSidebarView("settings", false);
     } else {
       infoPanel.classList.remove("collapsed");
-      switchSidebarView("explorer");
+      switchSidebarView("explorer", false);
     }
+  }
+
+  // Auto-collapse sidebar on mobile after choosing a file
+  if (window.innerWidth < 768) {
+    toggleSidebar(true);
   }
 
   // Settings active theme setups
@@ -1406,6 +1411,17 @@ function setupEventListeners() {
       toggleSidebar(true);
     }
   };
+
+  // Close sidebar on mobile when tapping outside the sidebar & activity bar
+  document.addEventListener("click", (e) => {
+    if (window.innerWidth < 768 && !sidebarCollapsed) {
+      const clickedSidebar = sidePane.contains(e.target);
+      const clickedActivityBar = document.querySelector(".activity-bar").contains(e.target);
+      if (!clickedSidebar && !clickedActivityBar) {
+        toggleSidebar(true);
+      }
+    }
+  });
 }
 
 // Toggle right sidebar panel sections

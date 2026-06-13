@@ -1651,3 +1651,20 @@ html, body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(121, 121, 121, 0.6);
 }
+
+/* Mobile Padding Adjustments */
+@media (max-width: 480px) {
+  .editor-window {
+    padding: 15px;
+  }
+  .settings-content {
+    padding: 15px;
+  }
+}
+
+/* Hide desktop-only status bar items on small screens */
+@media (max-width: 600px) {
+  .status-item-desktop {
+    display: none;
+  }
+}
